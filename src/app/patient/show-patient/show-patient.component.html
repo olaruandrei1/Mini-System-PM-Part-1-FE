@@ -1,0 +1,98 @@
+<table class="table table-hover table-dark text-center">
+    <thead>
+        <tr>
+            <th scope="col">Id Patient</th>
+            <th scope="col">Status of hospitalization</th>
+            <th scope="col">First & Last Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of patientList$ | async">
+            <td>{{ item.id }}</td>
+            <td>{{ item.statusHos }}</td>
+            <td>{{ item.firstLastNamePatient }}</td>
+            <td>{{ departmentsMap.get(item.departmentId) }}</td>
+            <td>
+                <button
+                    class="btn btn-dark text-light"
+                    style="margin-right: 10px"
+                    (click)="modalEdit(item)"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"
+                >
+                    <i class="fa-solid fa-file-pen fa-xl"></i>
+                </button>
+                <button class="btn btn-dark text-light" (click)="delete(item)">
+                    <i class="fa-solid fa-trash-can fa-xl"></i>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div class="alert alert-info" role="alert" id="add-success-alert">
+    The patient was added successfully.
+</div>
+<div class="alert alert-info" role="alert" id="update-success-alert">
+    The patient was updated successfully.
+</div>
+<div class="alert alert-info" role="alert" id="delete-success-alert">
+    The patient was deleted successfully.
+</div>
+
+<div class="container-for-modal">
+    <div class="text-center">
+        <button
+            type="button"
+            class="btn btn-outline-light"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            (click)="modalAdd()"
+        >
+            <b>Add patient</b>
+        </button>
+    </div>
+    <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+    >
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark" id="staticBackdropLabel">
+                        {{ modalTitle }}&nbsp;&nbsp;<i
+                            class="fa-solid fa-user-doctor fa-sm text-dark"
+                        ></i>
+                    </h5>
+                </div>
+                <div class="modal-body text-dark">
+                    <app-add-edit-patient
+                        [patient]="patient"
+                        *ngIf="activateAddEditPatientComponent"
+                    ></app-add-edit-patient>
+                </div>
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-secondary bg-white border-0"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        (click)="modalClose()"
+                        id="add-edit-model-close"
+                    >
+                        >
+                        <i
+                            class="fa-solid fa-circle-xmark fa-2xl text-dark"
+                        ></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

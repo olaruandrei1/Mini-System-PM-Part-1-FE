@@ -1,0 +1,8 @@
+* {
+    background-color: #2d2e2e;
+    color: #fff;
+}
+.container {
+    box-shadow: 0px 0px 100px rgb(70, 63, 63);
+    border-radius: 10px;
+}

@@ -1,0 +1,70 @@
+<form action="">
+    <div class="mb-3">
+        <label for="departmentId" class="form-label">Department</label>
+        <input
+            type="text"
+            class="form-control"
+            mame="departmentId"
+            [(ngModel)]="departmentId"
+            *ngIf="patient.id != 0"
+            disabled
+        />
+        <select
+            name="departmentId"
+            id="departmentId"
+            class="form-control form-select"
+            [(ngModel)]="departmentId"
+            *ngIf="patient.id == 0"
+        >
+            <option
+                *ngFor="let department of departmentList$ | async"
+                [value]="department.id"
+            >
+                {{ department.departamentName }}
+            </option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="statusHos" class="form-label">Hospitalization status</label>
+
+        <select
+            class="form-control form-select"
+            name="statusHos"
+            id="statusHos"
+            [(ngModel)]="statusHos"
+        >
+            <option
+                *ngFor="let status of statusHosList$ | async"
+                [value]="status.statusOption"
+                class="text-dark"
+            >
+                {{ status.statusOption }}
+            </option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="FirstLastNamePatient" class="form-label"
+            >First & Last name</label
+        >
+        <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="firstLastNamePatient"
+            name="firstLastNamePatient"
+        />
+    </div>
+    <button
+        (click)="addPatient()"
+        *ngIf="patient.id == 0"
+        class="btn btn-primary bg-white border-0"
+    >
+        <i class="fa-solid fa-circle-plus fa-2xl text-dark"></i>
+    </button>
+    <button
+        (click)="updatePatient()"
+        *ngIf="patient.id != 0"
+        class="btn btn-primary bg-white border-0"
+    >
+        <i class="fa-solid fa-user-pen fa-2xl text-dark"></i>
+    </button>
+</form>
